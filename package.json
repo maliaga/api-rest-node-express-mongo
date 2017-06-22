@@ -4,11 +4,16 @@
   "description": "Proyecto de prueba para una API RESTful con Node.js, Express y mongo DB",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "maliaga (htt://marioaliaga.com)",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
