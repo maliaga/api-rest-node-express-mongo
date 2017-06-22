@@ -1,0 +1,14 @@
+{
+  "name": "api-rest",
+  "version": "1.0.0",
+  "description": "Proyecto de prueba para una API RESTful con Node.js, Express y mongo DB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "maliaga (htt://marioaliaga.com)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
