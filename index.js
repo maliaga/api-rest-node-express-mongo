@@ -60,6 +60,17 @@ app.put('/api/product/:productId', (req, res) => {
 
 app.delete('/api/product/:productId', (req, res) => {
 
+    let productId = req.params.productId
+
+    Product.findById(productId, (err, product) => {
+        if (err) res.send(`Error al tratar de eliminar el producto con id: ${productId} con el error: ${err}.`)
+
+        product.remove(err => {
+            if(err) res.send(`Error al tratar de eliminar el producto con id ${productId} y el error es ${err}.`)
+
+            res.status(200).send({message: `Producto eliminado correctamente.`})
+        })
+    })
 });
 
 mongoose.connect('mongodb://localhost:27017/shop', (err, res) => {
