@@ -10,76 +10,16 @@ const mongoose = require('mongoose')
 const app = express();
 const port = process.env.PORT || 3001;
 
-const Product = require('./models/product')
+const productCtrl = require('./controllers/product')
 
 app.use(bodyParse.urlencoded({extended: false}))
 app.use(bodyParse.json());
 
-app.get('/api/product', (req, res) => {
-
-    Product.find({}, (err, products) => {
-        if (err) return res.status(500).send({message: `A ocurrido un error al tratar de buscar los productos : ${err}`})
-        if (!products) return res.status(404).send({message: `Nno se han encontrado productos`})
-
-        res.status(200).send({products})
-    })
-});
-
-app.get('/api/product/:productId', (req, res) => {
-
-    let productId = req.params.productId
-
-    Product.findById(productId, (err, product) => {
-        if (err) return res.status(500).send({message: `A ocurrido un error al tratar de insertas el producto : ${err}`})
-        if (!product) return res.status(404).send({message: `El priducto con el ID ${productId} no se ha encontrado`})
-
-        res.status(200).send({product})
-    })
-});
-
-app.post('/api/product', (req, res) => {
-    console.log(req.body);
-
-    let product = new Product()
-    product.name = req.body.name
-    product.picture = req.body.picture
-    product.price = req.body.price
-    product.category = req.body.category
-    product.description = req.body.description
-
-    product.save((err, productStored) => {
-        if (err) res.status(500).send({message: `Error al guardar producto ne la base de datos : ${err}`})
-
-        res.status(200).send({product: productStored})
-    })
-});
-
-app.put('/api/product/:productId', (req, res) => {
-
-    let productId = req.params.productId
-    let updateBody = req.body
-
-    Product.findByIdAndUpdate(productId, updateBody, {new: true}, (err, productUpdated) => {
-        if (err) res.send(`Error al tratar de actualizar el producto con id: ${productId} con el error: ${err}.`)
-
-        res.status(200).send({product: productUpdated})
-    })
-});
-
-app.delete('/api/product/:productId', (req, res) => {
-
-    let productId = req.params.productId
-
-    Product.findById(productId, (err, product) => {
-        if (err) res.send(`Error al tratar de eliminar el producto con id: ${productId} con el error: ${err}.`)
-
-        product.remove(err => {
-            if (err) res.send(`Error al tratar de eliminar el producto con id ${productId} y el error es ${err}.`)
-
-            res.status(200).send({message: `Producto eliminado correctamente.`})
-        })
-    })
-});
+app.get('/api/product', productCtrl.getProducts);
+app.get('/api/product/:productId',productCtrl.getProductById);
+app.post('/api/product', productCtrl.saveProduct);
+app.put('/api/product/:productId', productCtrl.updateProduct);
+app.delete('/api/product/:productId', productCtrl.deleteProduct);
 
 mongoose.connect('mongodb://localhost:27017/shop', (err, res) => {
     if (err) {
