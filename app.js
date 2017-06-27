@@ -4,17 +4,11 @@
 
 const express = require('express')
 const bodyParse = require('body-parser')
-const app = express();
-const productCtrl = require('./controllers/product')
+const app = express()
+const api = require('./routes')
 
 app.use(bodyParse.urlencoded({extended: false}))
 app.use(bodyParse.json());
-
-app.get('/api/product', productCtrl.getProducts);
-app.get('/api/product/:productId',productCtrl.getProductById);
-app.post('/api/product', productCtrl.saveProduct);
-app.put('/api/product/:productId', productCtrl.updateProduct);
-app.delete('/api/product/:productId', productCtrl.deleteProduct);
-
+app.use('/api',api)
 
 module.exports = app
