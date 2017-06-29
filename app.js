@@ -22,5 +22,9 @@ app.use('/login', (req, res) => {
     "use strict";
     res.render('login')
 })
+app.use('/products', (req, res) => {
+    "use strict";
+    res.render('products')
+})
 
 module.exports = app
