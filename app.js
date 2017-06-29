@@ -18,5 +18,9 @@ app.set('view engine', '.hbs')
 
 
 app.use('/api',api)
+app.use('/login', (req, res) => {
+    "use strict";
+    res.render('login')
+})
 
 module.exports = app
