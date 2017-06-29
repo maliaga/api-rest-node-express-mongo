@@ -16,11 +16,15 @@ const userSchema = new Schema({
     lastLogin: Date
 })
 
-UserSchema.pre('save', (next) => {
+userSchema.pre('save', function(next){
     "use strict";
     let user = this
-    if (!user.isModified('password')) return next()
+   // if (!user.isModified('password')) return next()
+    console.log('pre')
 
+    console.log(user)
+
+    console.log('pre')
     bcrypt.genSalt(10, (err, salt) => {
         if (err) return next(err)
 
@@ -33,7 +37,7 @@ UserSchema.pre('save', (next) => {
     })
 })
 
-UserSchema.methods.gravatar = function () {
+userSchema.methods.gravatar = function () {
     if (!this.email) return 'https://gravatar.com/avatar/?s=200&d=retro'
 
     const md5 = crypto.createHash('md5').update(this.email).digest('hex')

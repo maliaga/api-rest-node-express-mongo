@@ -4,20 +4,25 @@
 
 'use strict'
 
-const nomgoose = require('mongoose')
 const User = require('../models/user')
 const service = require('../services')
 
 function signUp(req, res) {
+    console.log('signUp')
+    console.log(req)
+    console.log('signUp')
     const user = new User({
         email: req.body.email,
-        displayName: req.body.displayName
+        displayName: req.body.displayName,
+        password: req.body.password
     })
-
+    console.log('user')
+    console.log(user)
+    console.log('user')
     user.save((err) => {
         if (err) res.status(500).send({message: `Error al tratar de crear al usuario: ${err}`})
 
-        return res.status(200).send({token: service.createToken(user)})
+        return res.status(201).send({token: service.createToken(user)})
     })
 }
 
