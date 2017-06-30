@@ -4,7 +4,8 @@
   "description": "Proyecto de prueba para una API RESTful con Node.js, Express y mongo DB",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "serve": "nodemon index.js"
   },
   "author": "maliaga (htt://marioaliaga.com)",
   "license": "MIT",
